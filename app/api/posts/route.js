@@ -13,6 +13,7 @@ export async function GET() {
     }
 }
 
+// Handle POST request
 export async function POST(req) {
     try {
         const { title, content } = await req.json();

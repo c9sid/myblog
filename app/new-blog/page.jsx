@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
@@ -11,22 +10,35 @@ const newBlog = () => {
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const router = useRouter();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            axios.post('https://myblog-two-psi.vercel.app/api/posts/', {
-                title,
-                content
-            })
+
+        const res = await fetch('/api/posts/', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title, content }),
+        });
+
+        if (title == '' || content == '') {
+            setErrorMessage("All fields are required!");
+            return;
+        }
+
+        if (res.ok) {
             setTitle('');
             setContent('');
+            setSuccessMessage('Blog added successfully!');
             router.push('/blogs');
-            console.log('Blog posted');
-        } catch (error) {
-            console.log("Error while posting blog");
+        } else {
+            setErrorMessage("Failded to create blog");
         }
+
     }
 
     return (
@@ -38,6 +50,8 @@ const newBlog = () => {
                     <Textarea onChange={(e) => setContent(e.target.value)} value={content} placeholder="Enter Description" />
                     <Button className='w-72'>Publish</Button>
                 </div>
+                {successMessage && <p className='text-center py-3 text-green-500'>{successMessage}</p>}
+                {errorMessage && <p className='text-center py-3 text-red-500'>{errorMessage}</p>}
             </form>
         </div>
     )
