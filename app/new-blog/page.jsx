@@ -16,7 +16,7 @@ const newBlog = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
-            axios.post('http://localhost:3000/api/posts/', {
+            axios.post('https://myblog-on2bwl2m9-c9sids-projects.vercel.app/api/posts', {
                 title,
                 content
             })
