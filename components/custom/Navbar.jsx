@@ -4,7 +4,7 @@ import { Button } from '../ui/button'
 
 const Navbar = () => {
     return (
-        <div className='flex justify-between items-center p-5 border-b'>
+        <div className='sticky top-0 bg-background/70 backdrop-blur-md flex justify-between items-center p-5 border-b'>
             <div className="logo">
                 <Link className='text-2xl font-semibold' href={'/'}>MyBlog</Link>
             </div>
