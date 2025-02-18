@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 export default async function BlogPage() {
 
-    const res = await fetch('http://localhost:3000/api/posts', { cache: "no-store" });
+    const res = await fetch('https://myblog-two-psi.vercel.app/api/posts', { cache: "no-store" });
     const posts = await res.json();
 
     return (
