@@ -16,7 +16,7 @@ const newBlog = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
-            axios.post('https://myblog-two-psi.vercel.app/api/posts/api/posts', {
+            axios.post('https://myblog-two-psi.vercel.app/api/posts/', {
                 title,
                 content
             })
